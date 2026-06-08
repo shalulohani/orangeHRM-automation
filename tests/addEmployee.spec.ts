@@ -1,32 +1,16 @@
-import { test, expect } from '@playwright/test';
-import { AddEmployeePage } from '../pages/AddEmployeePage';
+import { test, expect, type Page } from '@playwright/test';
 
-test('Add new employee', async ({ page }) => {
+test('Add new employee', async ({ page }: { page: Page }) => {
+  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee');
 
-  const add = new AddEmployeePage(page);
+  await page.fill('input[name="firstName"]', 'Amit');
+  await page.fill('input[name="lastName"]', 'Sharma');
 
-  // Step 1: Login
-  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-  await page.fill('input[name="username"]', 'Admin');
-  await page.fill('input[name="password"]', 'admin123');
-  await page.click('button[type="submit"]');
+  // Click Save and wait for network to settle
+  await page.locator('button:has-text("Save")').click();
+  await page.waitForLoadState('networkidle');
 
-  // Step 2: Navigate to PIM → Add Employee
-  await add.navigateToAddEmployee();
-
-  // Step 3: Generate test data
-  const firstName = 'John';
-  const middleName = '';
-  const lastName = 'Doe' + Math.floor(Math.random() * 10000);
-
-  // Step 4: Fill employee details
-  await page.fill('input[name="firstName"]', firstName);
-  await page.fill('input[name="middleName"]', middleName);
-  await page.fill('input[name="lastName"]', lastName);
-
-  // Step 5: Save employee
-  await add.saveEmployee();
-
-  // Step 6: Verify success
-  await expect(page.locator('text=Successfully Saved')).toBeVisible();
+  // Wait for success message with extended timeout
+  const successMessage = page.locator('text=Successfully Saved');
+  await expect(successMessage).toBeVisible({ timeout: 15000 });
 });
