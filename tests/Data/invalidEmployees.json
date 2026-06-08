@@ -1,0 +1,12 @@
+[
+  { "firstName": "12345", "lastName": "Test" },
+  { "firstName": "@@@@", "lastName": "User" },
+  { "firstName": "😊😊😊", "lastName": "Emoji" },
+  { "firstName": "A", "lastName": "" },
+  { "firstName": "", "lastName": "OnlyLast" },
+  { "firstName": "   ", "lastName": "Space" },
+  { "firstName": "NameWith#Hash", "lastName": "Test" },
+  { "firstName": "VeryLongNameVeryLongNameVeryLongNameVeryLongNameVeryLongName", "lastName": "Test" },
+  { "firstName": "DROP TABLE EMPLOYEE;", "lastName": "SQL" },
+  { "firstName": "Null", "lastName": " " }
+]

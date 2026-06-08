@@ -1,0 +1,3 @@
+[2026-06-07 13:55:06] 🧩 Navigating to Employee List page
+[2026-06-07 13:55:08] 🧩 Searching for employee to delete: John
+[2026-06-07 13:55:09] 🧩 Deleting employee

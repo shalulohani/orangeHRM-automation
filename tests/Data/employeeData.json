@@ -1,0 +1,8 @@
+{
+  "defaultEmployee": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "middleName": "",
+    "location": "HQ"
+  }
+}

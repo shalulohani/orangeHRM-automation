@@ -1,0 +1,2 @@
+[2026-06-07 13:54:29] 🧩 Navigating to Add Employee page
+[2026-06-07 13:54:31] 🧩 Entering employee details: Ishaan Verma

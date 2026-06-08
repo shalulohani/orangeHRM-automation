@@ -1,36 +1,17 @@
-import { Page } from '@playwright/test';
+import { test, expect } from '../fixtures/baseTest';
 
-export class AdminPage {
-  readonly page: Page;
+test('Add new system user', async ({ page }) => {
+  await page.locator('nav').locator('span:has-text("Admin")').click();
+  await page.waitForSelector('a:has-text("User Management")', { timeout: 20000 });
+  await page.locator('a:has-text("User Management")').click();
+  await page.locator('a:has-text("Users")').click();
 
-  constructor(page: Page) {
-    this.page = page;
-  }
+  await page.locator('button:has-text("Add")').click();
 
-  async addJobTitle(title: string) {
+  await page.fill('input[name="username"]', 'AdminUser01');
+  await page.fill('input[type="password"]', 'AdminPass123!');
+  await page.fill('input[type="password"]:right-of(:text("Confirm Password"))', 'AdminPass123!');
 
-    // Click Admin menu
-    await this.page.locator("a[href*='admin']").first().click();
-
-    // Click Job tab in top bar
-    await this.page.locator(".oxd-topbar-body-nav-tab:has-text('Job')").click();
-
-    // Click Job Titles from left-side menu
-    await this.page.locator("a:has-text('Job Titles')").click();
-
-    // Wait for Add Job Title form
-    await this.page.waitForSelector("h6:has-text('Add Job Title')", { timeout: 40000 });
-
-    // Fill Job Title
-    await this.page.locator("input[placeholder='Job Title']").fill(title);
-
-    // Fill Description
-    await this.page.locator("textarea[placeholder='Type description here']").fill('Automation QA role');
-
-    // Save
-    await this.page.locator("button:has-text('Save')").click();
-
-    // Verify success toast
-    await this.page.waitForSelector("p:has-text('Successfully Saved')", { timeout: 40000 });
-  }
-}
+  await page.locator('button[type="submit"]').click();
+  await expect(page.locator('.oxd-toast')).toBeVisible({ timeout: 15000 });
+});
